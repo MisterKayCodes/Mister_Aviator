@@ -5,7 +5,8 @@ alembic
 psycopg2-binary
 asyncpg
 python-jose[cryptography]
-passlib[bcrypt]
+passlib
+bcrypt==3.1.7
 pydantic-settings
 python-multipart
 watchfiles
