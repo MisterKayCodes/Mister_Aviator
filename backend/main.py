@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from app.core.config import settings
+from config import settings
 from app.api.v1 import auth
 import os
 

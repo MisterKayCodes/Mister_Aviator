@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 
 # IMPORT YOUR MODELS HERE
-from app.core.config import settings
+from config import settings
 from app.data.base import Base
 from app.models.user import User
 from app.models.game import Game, GameRound, Bet
@@ -51,8 +51,11 @@ def do_run_migrations(connection: Connection) -> None:
 
 async def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
+    configuration = config.get_section(config.config_file_name, {})
+    configuration["sqlalchemy.url"] = settings.ASYNC_DATABASE_URL
+    
     connectable = async_engine_from_config(
-        config.get_section(config.config_file_name, {}),
+        configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
