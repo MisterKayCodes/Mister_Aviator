@@ -5,7 +5,7 @@ from app.schemas.user import UserCreate
 from app.core.security import get_password_hash
 
 async def get_user_by_email(db: AsyncSession, email: str) -> User:
-    result = await db.execute(select(User).filter(User.email == email))
+    result = await db.execute(select(User).filter(User.email == email.lower()))
     return result.scalars().first()
 
 async def get_user_for_update(db: AsyncSession, user_id: int) -> User:
@@ -20,7 +20,7 @@ async def get_user_for_update(db: AsyncSession, user_id: int) -> User:
 
 async def create_user(db: AsyncSession, obj_in: UserCreate) -> User:
     db_user = User(
-        email=obj_in.email,
+        email=obj_in.email.lower(),
         hashed_password=get_password_hash(obj_in.password),
         full_name=obj_in.full_name,
         is_admin=obj_in.is_admin

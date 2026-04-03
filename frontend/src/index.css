@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon-green: #00FF41;   /* Matrix/Money Green */
+  --color-electric-red: #FF3B30; /* Action Red */
+  --color-obsidian: #0B0E11;     /* Primary Background */
+  --color-gunmetal: #15191E;     /* Surface/Cards */
+  --color-border-thin: #2B3139;  /* Precise Borders */
+  --color-ice-white: #EAECEF;    /* Sharp Text */
+  
+  --font-inter: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-obsidian text-ice-white font-inter selection:bg-neon-green/30;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-gunmetal/60 backdrop-blur-lg border border-border-thin rounded-[4px];
+  }
+  
+  .neon-button {
+    @apply bg-neon-green text-black px-6 py-2 rounded-[4px] font-bold uppercase tracking-tight transition-all hover:shadow-[0_0_15px_rgba(0,255,65,0.4)] active:scale-[0.98] border-none;
+  }
+
+  .nav-link {
+    @apply text-ice-white/60 hover:text-neon-green transition-colors cursor-pointer text-sm font-medium tracking-normal;
+  }
+}

@@ -31,8 +31,11 @@ async def login_access_token(
     form_data: OAuth2PasswordRequestForm = Depends()
 ):
     user = await user_crud.get_user_by_email(db, email=form_data.username)
-    if not user or not security.verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(status_code=400, detail="Incorrect email or password")
+    if not user:
+        raise HTTPException(status_code=400, detail="Terminal Error: Email account not recognized.")
+    
+    if not security.verify_password(form_data.password, user.hashed_password):
+        raise HTTPException(status_code=400, detail="Terminal Error: Incorrect password for this node.")
     elif not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     

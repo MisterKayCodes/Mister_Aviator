@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from config import settings
-from app.api.v1 import auth
+from app.api.v1 import auth, users
 import os
 
 app = FastAPI(
@@ -33,6 +33,7 @@ app.mount(
 
 # Include Routers
 app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
+app.include_router(users.router, prefix=f"{settings.API_V1_STR}/users", tags=["users"])
 
 @app.get("/")
 async def root():
